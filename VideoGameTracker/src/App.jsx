@@ -1,23 +1,27 @@
-import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
-function App() {
-  const [count, setCount] = useState(0)
+import AppLayout from './components/ui/AppLayout';
+import TestPage from './components/pages/TestPage';
+
+const App = () => {
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline/>
+      <BrowserRouter>
+            <Routes>
+              <Route element={<AppLayout/>}>
+                <Route index element={<TestPage/>}/>
+              </Route>
+            </Routes>
+          </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
